@@ -16,12 +16,12 @@ namespace Ordering.Application.Features.Orders.Queries.GetOrdersList
         public GetOrdersListQueryHandler(IOrderRepository orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
-            this._mapper = _mapper ?? throw new ArgumentNullException(nameof(_mapper));
+            this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<List<OrdersVm>> Handle(GetOrdersListQuery request, CancellationToken cancellationToken)
         {
-           var orderList = await _orderRepository.GetOrderByUserName(request.UserName);
+            var orderList = await _orderRepository.GetOrderByUserName(request.UserName);
             return _mapper.Map<List<OrdersVm>>(orderList);
         }
     }
